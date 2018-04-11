@@ -21,6 +21,22 @@ public class Mesa {
         this.baraja.mezclarBaraja();
     }
 
+    public Stack<Carta> getCartaEnMesa() {
+        return cartaEnMesa;
+    }
+
+    public Baraja getBaraja() {
+        return baraja;
+    }
+
+    public void setCartaEnMesa(Stack<Carta> cartaEnMesa) {
+        this.cartaEnMesa = cartaEnMesa;
+    }
+
+    public void setBaraja(Baraja baraja) {
+        this.baraja = baraja;
+    }
+
     public synchronized Carta get() {
         while (this.cartaEnMesa.empty()) {
             try {
@@ -43,6 +59,5 @@ public class Mesa {
         }
         this.cartaEnMesa.push(baraja.darCarta());
         notify();
-
     }
 }

@@ -16,10 +16,19 @@ public class Jugador implements Runnable{
     private String nombre;
     private Stack<Carta> cartas;
     private boolean juegoTerminado=false;
-
+    private Mesa mesa;
+    
     public Jugador(String nombre) {
         this.nombre = nombre;
         this.cartas = new Stack<>();
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
+    public Mesa getMesa() {
+        return mesa;
     }
 
     public String getNombre() {
@@ -48,9 +57,16 @@ public class Jugador implements Runnable{
 
     @Override
     public void run() { /// while el juego no termino
-        while(juegoTerminado=false){
-            System.out.println("El jugador " + this.nombre + " acumula " + this.getPuntos());
+        while(this.getMesa().getCartaEnMesa().size()!=0){
+          try{
+              this.addCarta(this.getMesa().get());
+              System.out.println(this.cartas.size());
+              wait();
+          }catch(InterruptedException e){
+              
+          }
         }
+        notifyAll();
     }
 
 }
